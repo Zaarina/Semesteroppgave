@@ -5,6 +5,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="297.0" prefWidth="445.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="sample.Controller">
    <children>
-    <Button layoutX="192.0" layoutY="135.0" mnemonicParsing="false" onAction="#addScene" text="Ansatt" />
+    <Button layoutX="192.0" layoutY="135.0" mnemonicParsing="false" onAction="#ansattScene" text="Ansatt" />
+      <Button layoutX="191.0" layoutY="182.0" mnemonicParsing="false" onAction="#kundeScene" text="Kunde" />
    </children>
 </AnchorPane>

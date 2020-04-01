@@ -13,13 +13,24 @@ import java.io.IOException;
 public class Controller {
 
     @FXML
-    private void addScene(ActionEvent event)throws IOException{
+    private void ansattScene(ActionEvent event)throws IOException{
         Parent view2 = FXMLLoader.load(getClass().getResource("Ansatt.fxml"));
 
         Scene scene2 = new Scene(view2);
         Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
         window.setScene(scene2);
         window.show();
+    }
+
+    @FXML
+    private void kundeScene(ActionEvent event)throws IOException{
+        Parent view2 = FXMLLoader.load(getClass().getResource("Kunde.fxml"));
+
+        Scene scene2 = new Scene(view2);
+        Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        window.setScene(scene2);
+        window.show();
+
     }
 
 }
