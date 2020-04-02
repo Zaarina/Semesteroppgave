@@ -26,11 +26,15 @@ public class Ansatt {
 
     @FXML
     public ImageView view;
-    
+
 
     public void loggInn(ActionEvent event) throws IOException {
         if (txtBrukernavn.getText().equals("admin") && txtPassord.getText().equals("admin")) {
-            lblStatus.setText("Riktig"); //åpne ny ansatt scene
+            Parent view2 = FXMLLoader.load(getClass().getResource("Tableview.fxml"));
+            Scene scene2 = new Scene(view2);
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene2);
+            window.show();
         } else lblStatus.setText("Brukernavn eller passord er feil"); //må fikse exception her
         //glemt passord??
     }
