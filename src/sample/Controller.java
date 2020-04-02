@@ -8,12 +8,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class Controller {
 
     @FXML
-    private void ansattScene(ActionEvent event)throws IOException{
+    public void ansattScene(ActionEvent event)throws IOException{
         Parent view2 = FXMLLoader.load(getClass().getResource("Ansatt.fxml"));
 
         Scene scene2 = new Scene(view2);
@@ -23,7 +24,7 @@ public class Controller {
     }
 
     @FXML
-    private void kundeScene(ActionEvent event)throws IOException{
+    public void kundeScene(ActionEvent event)throws IOException{
         Parent view2 = FXMLLoader.load(getClass().getResource("Kunde.fxml"));
 
         Scene scene2 = new Scene(view2);
