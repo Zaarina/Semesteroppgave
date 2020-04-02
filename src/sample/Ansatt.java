@@ -8,9 +8,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
-import java.awt.*;
 import java.io.IOException;
 
 public class Ansatt {
@@ -24,20 +24,25 @@ public class Ansatt {
     @FXML
     public PasswordField txtPassord;
 
+    @FXML
+    public ImageView view;
+    
 
-    public void loggInn(ActionEvent event)throws IOException{
-        if (txtBrukernavn.getText().equals("admin") && txtPassord.getText().equals("admin")){
-            lblStatus.setText("Riktig");
-        } else lblStatus.setText("Feil");
+    public void loggInn(ActionEvent event) throws IOException {
+        if (txtBrukernavn.getText().equals("admin") && txtPassord.getText().equals("admin")) {
+            lblStatus.setText("Riktig"); //åpne ny ansatt scene
+        } else lblStatus.setText("Brukernavn eller passord er feil"); //må fikse exception her
+        //glemt passord??
     }
-    public void changeScene(ActionEvent event) throws IOException
-    {
+
+    public void changeScene(ActionEvent event) throws IOException {
         Parent tableViewParent = FXMLLoader.load(getClass().getResource("sample.fxml"));
         Scene tableViewScene = new Scene(tableViewParent);
 
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         window.setScene(tableViewScene);
         window.show();
     }
+
 }
