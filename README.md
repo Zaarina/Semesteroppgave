@@ -1,2 +1,2 @@
 # Semesteroppgave
-nytest 
+hei
