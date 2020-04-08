@@ -4,8 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -14,16 +12,12 @@
       <Label layoutX="32.0" layoutY="23.0" prefHeight="46.0" prefWidth="122.0" text="Logg inn">
          <font>
             <Font size="28.0" />
-         </font></Label>
-      <Button layoutX="294.0" layoutY="241.0" mnemonicParsing="false" onAction="#changeScene" style="-fx-background-radius: 50px;" text="Tilbake" />
-      <TextField fx:id="txtBrukernavn" layoutX="90.0" layoutY="105.0" promptText="Brukernavn" style="-fx-background-radius: 50px;" />
-      <PasswordField fx:id="txtPassord" layoutX="90.0" layoutY="147.0" promptText="Passord" style="-fx-background-radius: 50px;" />
-      <Button layoutX="93.0" layoutY="241.0" mnemonicParsing="false" onAction="#loggInn" style="-fx-background-radius: 50px;" text="Logg inn" />
+         </font>
+      </Label>
+      <Button layoutX="294.0" layoutY="241.0" mnemonicParsing="false" onAction="#changeScene" style="-fx-background-radius: 50px;" text="Tilbake" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="126.0" />
+      <TextField fx:id="txtBrukernavn" layoutX="90.0" layoutY="105.0" minWidth="-Infinity" promptText="Brukernavn" style="-fx-background-radius: 50px;" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="105.0" />
+      <PasswordField fx:id="txtPassord" layoutX="90.0" layoutY="147.0" promptText="Passord" style="-fx-background-radius: 50px;" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="147.0" />
+      <Button layoutX="90.0" layoutY="241.0" mnemonicParsing="false" onAction="#loggInn" style="-fx-background-radius: 50px;" text="Logg inn" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="90.0" />
       <Label fx:id="lblStatus" layoutX="93.0" layoutY="200.0" prefHeight="27.0" prefWidth="297.0" />
-      <ImageView fx:id="view" fitHeight="150.0" fitWidth="200.0" layoutX="288.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-         <image>
-            <Image url="/sample/Bilder/a.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>

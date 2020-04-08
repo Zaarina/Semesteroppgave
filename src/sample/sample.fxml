@@ -2,10 +2,17 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="297.0" prefWidth="445.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-    <Button layoutX="192.0" layoutY="135.0" mnemonicParsing="false" onAction="#ansattScene" text="Ansatt" />
-      <Button layoutX="192.0" layoutY="194.0" mnemonicParsing="false" onAction="#kundeScene" text="Kunde" />
+    <Button layoutX="63.0" layoutY="128.0" mnemonicParsing="false" onAction="#ansattScene" prefHeight="60.0" prefWidth="142.0" style="-fx-background-color: transparent; -fx-border-color: #000;" text="Ansatt">
+         <font>
+            <Font size="28.0" />
+         </font></Button>
+      <Button layoutX="253.0" layoutY="127.0" mnemonicParsing="false" onAction="#kundeScene" prefHeight="62.0" prefWidth="142.0" style="-fx-background-color: transparent; -fx-border-color: #000;" text="Kunde">
+         <font>
+            <Font size="31.0" />
+         </font></Button>
    </children>
 </AnchorPane>
