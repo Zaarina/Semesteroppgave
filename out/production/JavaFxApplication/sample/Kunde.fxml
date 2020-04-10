@@ -8,7 +8,7 @@
 
 <AnchorPane id="rootPane" fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="724.0" styleClass="rootPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Kunde">
     <children>
-        <VBox id="vBox" fx:id="vBox" styleClass="vBox">
+        <VBox id="vBox" fx:id="vBox" layoutX="0.0" styleClass="vBox">
             <children>
                 <!-- First Menu -->
                 <VBox id="firstSubVBox" fx:id="firstSubVBox" styleClass="vBox">
