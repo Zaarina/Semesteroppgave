@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -78,9 +79,20 @@
       <Button layoutX="214.0" layoutY="426.0" mnemonicParsing="false" onAction="#changeScene" text="Tilbake" />
       <TableView fx:id="tableView" layoutX="374.0" layoutY="188.0" prefHeight="233.0" prefWidth="326.0">
         <columns>
-          <TableColumn fx:id="nameColumn" prefWidth="248.7999267578125" text="Komponenter" />
-          <TableColumn fx:id="priceColumn" prefWidth="77.60000610351562" text="Pris" />
+          <TableColumn id="komponenter" fx:id="nameColumn" prefWidth="76.79998779296875" text="Dine komponenter" />
+          <TableColumn id="pris" fx:id="priceColumn" prefWidth="111.19998168945312" text="Pris" />
+            <TableColumn fx:id="actionColumn" prefWidth="132.79998779296875" text="Fjern" />
         </columns>
       </TableView>
+      <Button layoutX="578.0" layoutY="426.0" mnemonicParsing="false" onAction="#lagreKonfigurasjon" text="Lagre konfigurasjon" />
+      <TableView layoutX="374.0" layoutY="39.0" prefHeight="135.0" prefWidth="326.0">
+        <columns>
+          <TableColumn prefWidth="248.79995727539062" text="C1" />
+          <TableColumn prefWidth="77.5999755859375" text="C2" />
+        </columns>
+      </TableView>
+      <Button layoutX="374.0" layoutY="426.0" mnemonicParsing="false" onAction="#clearList" text="Fjern alle" />
+      <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="150.0" layoutX="23.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="214.0" layoutY="305.0" mnemonicParsing="false" onAction="#loadImage" text="Last bilde" />
     </children>
 </AnchorPane>

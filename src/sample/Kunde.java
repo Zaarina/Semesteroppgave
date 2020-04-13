@@ -16,12 +16,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,10 +60,35 @@ public class Kunde implements Initializable {
     @FXML Button fifthMenu;
     Map<VBox,VBox> map = new HashMap<VBox,VBox>();
 
+    @FXML
+    private ImageView imageView;
+
+    //laster inn et test bilde
+    @FXML
+    void loadImage(ActionEvent event) {
+        Image image = new Image("sample/Bilder/GPU.jpg");
+        imageView.setImage(image);
+    }
+
+    //Knapp som fjerner alle objekter fra listen
+    @FXML
+    void clearList(ActionEvent event) {
+        components.clear();
+    }
+
+    //Knapp som lagrer tableview objektene til fil
+    Path filePath = Paths.get("C:\\Users\\kunta\\OneDrive\\Desktop\\Documents\\OsloMet\\Java\\Semesteroppgave\\src\\sample\\PC Configuration");
+    @FXML
+    void lagreKonfigurasjon(ActionEvent event) throws IOException{
+        saveConfiguration.save(components, filePath);
+        components.clear();
+    }
+
     //Tableview
     @FXML private TableView<componentObject> tableView;
     @FXML private TableColumn<componentObject, String> nameColumn;
     @FXML private TableColumn<componentObject, Integer> priceColumn;
+    @FXML private TableColumn<componentObject, Button> actionColumn;
 
     //Når man trykker på G-MAX2000
     @FXML
@@ -81,6 +110,7 @@ public class Kunde implements Initializable {
         components.add(new componentObject("GTX1060", 4500));
         components.add(new componentObject("ASUS TUF X299", 2399));
         components.add(new componentObject("HyperX Impact", 1919));
+        System.out.println(new componentObject("Intel Pentium", 1500).toString());
         return components;
     }
 
@@ -89,6 +119,10 @@ public class Kunde implements Initializable {
         //setter opp kolonnene i tableview
         nameColumn.setCellValueFactory(new PropertyValueFactory<componentObject, String>("name"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<componentObject, Integer>("price"));
+        //Legger til kolonnen med knapp
+        actionColumn.setCellValueFactory(new PropertyValueFactory<componentObject, Button>("button"));
+        //TableColumn removeItem = new TableColumn("Action");
+        //tableView.getColumns().addAll(removeItem);
         //Legger til objekter i tableview.
         tableView.setItems(getComponents());
 

@@ -7,6 +7,34 @@
     -fx-border-color: rgba(0, 0, 0, 0.96);
     -fx-background-color: #f92c3f;
 }
+
+.table-view{
+    -fx-background-color: #F2F2F2;
+    table: setselectionmodel null;
+}
+
+.table-view .column-header{
+    -fx-background-color: #F2B90F;
+}
+
+
+
+.table-view:focused{
+    -fx-background-color: #487eff;
+}
+
+.table-row:selected{
+    -fx-text-fill: #323232;
+}
+
+.table-row-cell:odd{
+    -fx-background-color: #F2F2F2;
+}
+
+.table-row-cell:even{
+    -fx-background-color: #FFFFFF;
+}
+
 .subVBox{
     -fx-border-style: solid inside;
     -fx-border-width: 1;
