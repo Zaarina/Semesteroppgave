@@ -1,5 +1,7 @@
 package sample;
 
+import Component.componentObject;
+import fileManagement.formatter;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.collections.FXCollections;
@@ -15,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,13 +29,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class Kunde implements Initializable {
 
+    //region FXML setup
     @FXML
     AnchorPane rootPane;
     @FXML
@@ -55,6 +56,7 @@ public class Kunde implements Initializable {
     @FXML VBox fourthSubMenuList;
     @FXML Button fourthMenu;
 
+
     @FXML VBox fifthSubVBox;
     @FXML VBox fifthSubMenuList;
     @FXML Button fifthMenu;
@@ -63,11 +65,25 @@ public class Kunde implements Initializable {
     @FXML
     private ImageView imageView;
 
+    //Tableview
+    @FXML private TableView<componentObject> configurationTabelView;
+    @FXML private TableColumn<componentObject, String> nameColumn;
+    @FXML private TableColumn<componentObject, Integer> priceColumn;
+    @FXML private TableView<componentObject> objectTableView;
+    @FXML private TreeView<?> myTreeView;
+    //endregion
+
     //laster inn et test bilde
     @FXML
     void loadImage(ActionEvent event) {
         Image image = new Image("sample/Bilder/GPU.jpg");
         imageView.setImage(image);
+    }
+
+    //Fjerner valgte objekter fra tableview & listen.
+    @FXML
+    void clearItem(ActionEvent event) throws NullPointerException{
+        configurationTabelView.getItems().removeAll(configurationTabelView.getSelectionModel().getSelectedItem());
     }
 
     //Knapp som fjerner alle objekter fra listen
@@ -76,55 +92,54 @@ public class Kunde implements Initializable {
         components.clear();
     }
 
-    //Knapp som lagrer tableview objektene til fil
-    Path filePath = Paths.get("C:\\Users\\kunta\\OneDrive\\Desktop\\Documents\\OsloMet\\Java\\Semesteroppgave\\src\\sample\\PC Configuration");
+    //Oppretter filplassering for lagrings filen av configurasjonen
+    Path filePath = Paths.get("C:\\Users\\kunta\\OneDrive\\Desktop\\Documents\\OsloMet\\Java\\Semesteroppgave\\src\\sample\\Save.csv");
+    //Knapp som lagrer tableview objektene til fil. WIP
     @FXML
-    void lagreKonfigurasjon(ActionEvent event) throws IOException{
-        saveConfiguration.save(components, filePath);
+    void saveConfiguration(ActionEvent event) throws IOException{
+        //Fjerner componenter fra
         components.clear();
+        //printer string listen av componenentene til en tekst fil
+        fileManagement.writeFile.save(componentConfig, filePath);
     }
 
-    //Tableview
-    @FXML private TableView<componentObject> tableView;
-    @FXML private TableColumn<componentObject, String> nameColumn;
-    @FXML private TableColumn<componentObject, Integer> priceColumn;
-    @FXML private TableColumn<componentObject, Button> actionColumn;
-
     //Når man trykker på G-MAX2000
+    componentObject testObject = new componentObject("testObject", 25, "Test");
+
     @FXML
-    void addComponent(ActionEvent event) {
-        components.add( new componentObject("G-MAX2000", 2000));
-        System.out.println();
+    void addComponent(ActionEvent event) throws IOException{
+        components.add( new componentObject("G-MAX2000", 2000, "Graphics Card"));
+        componentConfig.add(formatter.formatComponent(new componentObject("G-MAX2000", 2000, "Graphics Card")));
     }
 
 
     //oppretter en arraylist som skal inneholde alle komponenter
-    ArrayList<componentObject> availableComponents = new ArrayList<>();
-
+    List<String> componentConfig = new ArrayList<>();
 
     //Oppretter en observable list og legger til objekter. Returnerer listen.
     ObservableList<componentObject> components = FXCollections.observableArrayList();
+
+    //Legger til test objekter i listen. Returnerer listen.
     public ObservableList<componentObject> getComponents(){
-        //Legger til objekter i listen. Returnerer listen.
-        components.add(new componentObject("Intel Pentium", 1500));
-        components.add(new componentObject("GTX1060", 4500));
-        components.add(new componentObject("ASUS TUF X299", 2399));
-        components.add(new componentObject("HyperX Impact", 1919));
-        System.out.println(new componentObject("Intel Pentium", 1500).toString());
+        components.add(new componentObject("Intel Pentium", 1500, "Processor"));
+        components.add(new componentObject("GTX1060", 4500, "Graphics Card"));
+        components.add(new componentObject("ASUS TUF X299", 2399, "Motherboard"));
+        components.add(new componentObject("HyperX Impact", 1919, "Memory"));
         return components;
     }
 
     public void initialize(URL location, ResourceBundle resources) {
-
         //setter opp kolonnene i tableview
         nameColumn.setCellValueFactory(new PropertyValueFactory<componentObject, String>("name"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<componentObject, Integer>("price"));
-        //Legger til kolonnen med knapp
-        actionColumn.setCellValueFactory(new PropertyValueFactory<componentObject, Button>("button"));
-        //TableColumn removeItem = new TableColumn("Action");
-        //tableView.getColumns().addAll(removeItem);
         //Legger til objekter i tableview.
-        tableView.setItems(getComponents());
+        configurationTabelView.setItems(getComponents());
+
+        //Legger til test objecter
+        componentConfig.add(formatter.formatComponent(new componentObject("Intel Pentium", 1500, "Processor")));
+        componentConfig.add(formatter.formatComponent(new componentObject("GTX1060", 4500, "Graphics Card")));
+        componentConfig.add(formatter.formatComponent(new componentObject("ASUS TUF X299", 2399, "Motherboard")));
+        componentConfig.add(formatter.formatComponent(new componentObject("HyperX Impact", 1919, "Memory")));
 
         addMenusToMap();
         setComponentsSize();

@@ -2,16 +2,17 @@
 
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Tableview">
    <children>
-      <TableView layoutX="323.0" layoutY="108.0" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="myTableView" layoutX="323.0" layoutY="108.0" prefHeight="200.0" prefWidth="200.0">
         <columns>
           <TableColumn prefWidth="75.0" text="C1" />
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
+      <TreeView fx:id="myTreeView" layoutX="67.0" layoutY="108.0" prefHeight="200.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
