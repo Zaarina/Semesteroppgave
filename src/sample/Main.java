@@ -15,7 +15,7 @@ public class Main extends Application
     public void start(Stage primaryStage) throws Exception{
         //Original source sample.fxml
         //Source for testing av superbruker Tableview.fxml
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Tableview.fxml"));
         primaryStage.setTitle("Semesteroppgave2020");
         /*Original størrelse
         primaryStage.setScene(new Scene(root, 445, 297));

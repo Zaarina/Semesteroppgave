@@ -9,12 +9,22 @@ public class componentObject {
     public SimpleStringProperty name;
     public int price;
     public SimpleStringProperty type;
+    public int componentID;
 
-     public componentObject(String name, int price, String type){
+     public componentObject(int componentID, String name, int price, String type){
+         this.componentID = componentID;
          this.name = new SimpleStringProperty(name);
          this.price = price;
          this.type = new SimpleStringProperty(type);
      }
+
+    public int getComponentID() {
+        return componentID;
+    }
+
+    public void setComponentID(int componentID) {
+        this.componentID = componentID;
+    }
 
     public String getName() {
         return name.get();

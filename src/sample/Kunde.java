@@ -104,12 +104,12 @@ public class Kunde implements Initializable {
     }
 
     //Når man trykker på G-MAX2000
-    componentObject testObject = new componentObject("testObject", 25, "Test");
+    componentObject testObject = new componentObject(1,"testObject", 25, "Test");
 
     @FXML
     void addComponent(ActionEvent event) throws IOException{
-        components.add( new componentObject("G-MAX2000", 2000, "Graphics Card"));
-        componentConfig.add(formatter.formatComponent(new componentObject("G-MAX2000", 2000, "Graphics Card")));
+        components.add( new componentObject(1,"G-MAX2000", 2000, "Graphics Card"));
+        componentConfig.add(formatter.formatComponent(new componentObject(1,"G-MAX2000", 2000, "Graphics Card")));
     }
 
 
@@ -117,14 +117,14 @@ public class Kunde implements Initializable {
     List<String> componentConfig = new ArrayList<>();
 
     //Oppretter en observable list og legger til objekter. Returnerer listen.
-    ObservableList<componentObject> components = FXCollections.observableArrayList();
+    public static ObservableList<componentObject> components = FXCollections.observableArrayList();
 
     //Legger til test objekter i listen. Returnerer listen.
-    public ObservableList<componentObject> getComponents(){
-        components.add(new componentObject("Intel Pentium", 1500, "Processor"));
-        components.add(new componentObject("GTX1060", 4500, "Graphics Card"));
-        components.add(new componentObject("ASUS TUF X299", 2399, "Motherboard"));
-        components.add(new componentObject("HyperX Impact", 1919, "Memory"));
+    public static ObservableList<componentObject> getComponents(){
+        components.add(new componentObject(1,"Intel Pentium", 1500, "Processor"));
+        components.add(new componentObject(2,"GTX1060", 4500, "Graphics Card"));
+        components.add(new componentObject(3,"ASUS TUF X299", 2399, "Motherboard"));
+        components.add(new componentObject(4,"HyperX Impact", 1919, "Memory"));
         return components;
     }
 
@@ -136,10 +136,10 @@ public class Kunde implements Initializable {
         configurationTabelView.setItems(getComponents());
 
         //Legger til test objecter
-        componentConfig.add(formatter.formatComponent(new componentObject("Intel Pentium", 1500, "Processor")));
-        componentConfig.add(formatter.formatComponent(new componentObject("GTX1060", 4500, "Graphics Card")));
-        componentConfig.add(formatter.formatComponent(new componentObject("ASUS TUF X299", 2399, "Motherboard")));
-        componentConfig.add(formatter.formatComponent(new componentObject("HyperX Impact", 1919, "Memory")));
+        componentConfig.add(formatter.formatComponent(new componentObject(1,"Intel Pentium", 1500, "Processor")));
+        componentConfig.add(formatter.formatComponent(new componentObject(2,"GTX1060", 4500, "Graphics Card")));
+        componentConfig.add(formatter.formatComponent(new componentObject(3,"ASUS TUF X299", 2399, "Motherboard")));
+        componentConfig.add(formatter.formatComponent(new componentObject(4,"HyperX Impact", 1919, "Memory")));
 
         addMenusToMap();
         setComponentsSize();
