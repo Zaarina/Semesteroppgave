@@ -16,6 +16,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Tableview implements Initializable {
+
     @FXML private TableView<componentObject> superTableView;
     @FXML private TableColumn<componentObject, String> superNameColumn;
     @FXML private TableColumn<componentObject, Integer> superPriceColumn;
@@ -25,7 +26,9 @@ public class Tableview implements Initializable {
     @FXML private TableColumn<componentObject, Integer> localPriceColumn;
 
     //Exception må håndteres
+    //Denne metoden kopierer og legger til et valgt objekt fra superTable til localTable
     @FXML void getSelectedText(ActionEvent event) throws NullPointerException{
+
         if(superTableView.getSelectionModel().getSelectedItem().equals(null)){
             throw new NullPointerException("Null");
         }
@@ -35,12 +38,12 @@ public class Tableview implements Initializable {
         superTableView.getSelectionModel().select(null);
     }
 
+    //Oppretter ObservableLists som skal inneholde objekt data.
     ObservableList<componentObject> superList = FXCollections.observableArrayList();
-
     ObservableList<componentObject> localList = FXCollections.observableArrayList();
 
+    //Setter inn test data i superListen. Denne metoden burde senere lese fra fil og laste inn objektene automatisk.
     public ObservableList<componentObject> getSuperList(){
-        //Setter inn test data. Denne metoden burde lese fra fil og laste inn objektene automatisk.
         superList.add(new componentObject(1,"Intel Pentium", 1499, "Processor"));
         superList.add(new componentObject(1,"GTX 1080", 3499, "Graphics Card"));
         superList.add(new componentObject(1,"ASUS Motherboard", 1299, "Motherboard"));
@@ -53,16 +56,14 @@ public class Tableview implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //Innitialiserer kolonnene i tableviews.
         superNameColumn.setCellValueFactory(new PropertyValueFactory<componentObject, String>("name"));
         superPriceColumn.setCellValueFactory(new PropertyValueFactory<componentObject, Integer>("price"));
-
-        superTableView.setItems(getSuperList());
-
         localNameColumn.setCellValueFactory(new PropertyValueFactory<componentObject, String>("name"));
         localPriceColumn.setCellValueFactory(new PropertyValueFactory<componentObject, Integer>("price"));
+        //Setter objektene inn i superTableView.
+        superTableView.setItems(getSuperList());
+
     }
-
-
-
 
 }
