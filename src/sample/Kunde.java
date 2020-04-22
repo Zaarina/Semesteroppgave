@@ -17,7 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,46 +30,38 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
+import static fileManagement.readFile.readSerializedFile;
+
 public class Kunde implements Initializable {
 
     //region FXML setup
     @FXML
     AnchorPane rootPane;
-    @FXML
-    VBox vBox;
 
-    @FXML VBox firstSubVBox;
-    @FXML VBox firstSubMenuList;
-    @FXML
-    Button firstMenu;
+    @FXML public void changeScene(ActionEvent event) throws IOException
+    {
+        Parent tableViewParent = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Scene tableViewScene = new Scene(tableViewParent);
 
-    @FXML VBox secondSubVBox;
-    @FXML VBox secondSubMenuList;
-    @FXML Button secondMenu;
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
-    @FXML VBox thirdSubVBox;
-    @FXML VBox thirdSubMenuList;
-    @FXML Button thirdMenu;
-
-    @FXML VBox fourthSubVBox;
-    @FXML VBox fourthSubMenuList;
-    @FXML Button fourthMenu;
-
-
-    @FXML VBox fifthSubVBox;
-    @FXML VBox fifthSubMenuList;
-    @FXML Button fifthMenu;
-    Map<VBox,VBox> map = new HashMap<VBox,VBox>();
+        window.setScene(tableViewScene);
+        window.show();
+    }
 
     @FXML
     private ImageView imageView;
 
-    //Tableview
-    @FXML private TableView<componentObject> configurationTabelView;
-    @FXML private TableColumn<componentObject, String> nameColumn;
-    @FXML private TableColumn<componentObject, Integer> priceColumn;
+    //Super tableview
+    @FXML private TableView<componentObject> superTableView;
+    @FXML private TableColumn<componentObject, String> superNameColumn;
+    @FXML private TableColumn<componentObject, Integer> superPriceColumn;
+
+    //Local Tableview
+    @FXML private TableView<componentObject> configurationTableView;
+    @FXML private TableColumn<componentObject, String> localNameColumn;
+    @FXML private TableColumn<componentObject, Integer> localPriceColumn;
     @FXML private TableView<componentObject> objectTableView;
-    @FXML private TreeView<?> myTreeView;
     //endregion
 
     //laster inn et test bilde
@@ -83,13 +74,13 @@ public class Kunde implements Initializable {
     //Fjerner valgte objekter fra tableview & listen.
     @FXML
     void clearItem(ActionEvent event) throws NullPointerException{
-        configurationTabelView.getItems().removeAll(configurationTabelView.getSelectionModel().getSelectedItem());
+        configurationTableView.getItems().removeAll(configurationTableView.getSelectionModel().getSelectedItem());
     }
 
     //Knapp som fjerner alle objekter fra listen
     @FXML
     void clearList(ActionEvent event) {
-        components.clear();
+        localList.clear();
     }
 
     //Oppretter filplassering for lagrings filen av configurasjonen
@@ -98,7 +89,7 @@ public class Kunde implements Initializable {
     @FXML
     void saveConfiguration(ActionEvent event) throws IOException{
         //Fjerner componenter fra
-        components.clear();
+        localList.clear();
         //printer string listen av componenentene til en tekst fil
         fileManagement.writeFile.save(componentConfig, filePath);
     }
@@ -128,12 +119,37 @@ public class Kunde implements Initializable {
         return components;
     }
 
+    public void setSuperTableView(){
+        ObservableList<componentObject> list = FXCollections.observableArrayList(readSerializedFile());
+        superTableView.setItems(list);
+    }
+
+    ObservableList<componentObject> localList = FXCollections.observableArrayList();
+    @FXML void getSelectedItem(ActionEvent event) throws NullPointerException{
+
+        if(superTableView.getSelectionModel().getSelectedItem() == null){
+            throw new NullPointerException("Null");
+        }
+
+        componentObject object = superTableView.getSelectionModel().getSelectedItem();
+        localList.add(object);
+        configurationTableView.setItems(localList);
+        superTableView.getSelectionModel().select(null);
+        //System.out.print(dropDown.getSelectionModel().getSelectedItem());
+    }
+
     public void initialize(URL location, ResourceBundle resources) {
+        //Setter opp kolonnene i superTableView
+        superNameColumn.setCellValueFactory(new PropertyValueFactory<componentObject, String>("name"));
+        superPriceColumn.setCellValueFactory(new PropertyValueFactory<componentObject, Integer>("price"));
+
         //setter opp kolonnene i tableview
-        nameColumn.setCellValueFactory(new PropertyValueFactory<componentObject, String>("name"));
-        priceColumn.setCellValueFactory(new PropertyValueFactory<componentObject, Integer>("price"));
+        localNameColumn.setCellValueFactory(new PropertyValueFactory<componentObject, String>("name"));
+        localPriceColumn.setCellValueFactory(new PropertyValueFactory<componentObject, Integer>("price"));
         //Legger til objekter i tableview.
-        configurationTabelView.setItems(getComponents());
+        configurationTableView.setItems(localList);
+
+        setSuperTableView();
 
         //Legger til test objecter
         componentConfig.add(formatter.formatComponent(new componentObject(1,"Intel Pentium", 1500, "Processor")));
@@ -141,124 +157,5 @@ public class Kunde implements Initializable {
         componentConfig.add(formatter.formatComponent(new componentObject(3,"ASUS TUF X299", 2399, "Motherboard")));
         componentConfig.add(formatter.formatComponent(new componentObject(4,"HyperX Impact", 1919, "Memory")));
 
-        addMenusToMap();
-        setComponentsSize();
-
-
-        firstMenu.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                toolsSlider(firstSubVBox,firstSubMenuList);
-                removeOtherMenus(firstSubVBox);
-            }
-
-        });
-
-        secondMenu.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                toolsSlider(secondSubVBox,secondSubMenuList);
-                removeOtherMenus(secondSubVBox);
-            }
-        });
-
-        thirdMenu.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                toolsSlider(thirdSubVBox,thirdSubMenuList);
-                removeOtherMenus(thirdSubVBox);
-            }
-        });
-
-        fourthMenu.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                toolsSlider(fourthSubVBox,fourthSubMenuList);
-                removeOtherMenus(fourthSubVBox);
-            }
-        });
-
-        fifthMenu.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                toolsSlider(fifthSubVBox,fifthSubMenuList);
-                removeOtherMenus(fifthSubVBox);
-            }
-        });
     }
-
-    /**
-     * Set stage size as per screen resolution
-     */
-    private void setComponentsSize() {
-        vBox.setPrefWidth(200);
-    }
-    /**
-     * Add Menus to map
-     */
-    private void addMenusToMap() {
-        addMenusToMapImpl();
-    }
-
-    private void addMenusToMapImpl() {
-
-        map.put(firstSubVBox,firstSubMenuList);
-        map.put(secondSubVBox, secondSubMenuList);
-        map.put(thirdSubVBox,thirdSubMenuList);
-        map.put(fourthSubVBox, fourthSubMenuList);
-        map.put(fifthSubVBox, fifthSubMenuList);
-
-        /**
-         * Remove the components from VBox on load of stage
-         */
-        for (Map.Entry<VBox,VBox> entry : map.entrySet()) {
-            entry.getKey().getChildren().remove(entry.getValue());
-        }
-    }
-    /**
-     * Menu slider
-     * @param menu
-     * @param subMenu
-     */
-    public void toolsSlider(VBox menu,VBox subMenu){
-        toolsSliderImpl(menu,subMenu);
-    }
-
-    private void toolsSliderImpl(VBox menu,VBox subMenu) {
-        if(menu.getChildren().contains(subMenu)){
-            final FadeTransition transition = new FadeTransition(Duration.millis(500), menu);
-            transition.setFromValue(0.5);
-            transition.setToValue(1);
-            transition.setInterpolator(Interpolator.EASE_IN);
-            menu.getChildren().remove(subMenu);
-            transition.play();
-        }else{
-            final FadeTransition transition = new FadeTransition(Duration.millis(500), menu);
-            transition.setFromValue(0.5);
-            transition.setToValue(1);
-            transition.setInterpolator(Interpolator.EASE_IN);
-            menu.getChildren().add(subMenu);
-            transition.play();
-        }
-    }
-    /**
-     * Remove other menus
-     * @param menu
-     */
-    public void removeOtherMenus(VBox menu){
-        removeOtherMenusImpl(menu);
-    }
-    private void removeOtherMenusImpl(VBox menu) {
-        for (Map.Entry<VBox,VBox> entry : map.entrySet()) {
-            if(!entry.getKey().equals(menu))
-                entry.getKey().getChildren().remove(entry.getValue());
-        }
-    }
-
-    public void changeScene(ActionEvent event) throws IOException
-    {
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        Scene tableViewScene = new Scene(tableViewParent);
-
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-
-        window.setScene(tableViewScene);
-        window.show();
-    }
-
 }

@@ -5,17 +5,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 
-public class componentObject {
-    public SimpleStringProperty name;
+import java.io.Serializable;
+
+public class componentObject implements Serializable {
+    public String name;
     public int price;
-    public SimpleStringProperty type;
+    public String type;
     public int componentID;
 
      public componentObject(int componentID, String name, int price, String type){
          this.componentID = componentID;
-         this.name = new SimpleStringProperty(name);
+         this.name = name;
          this.price = price;
-         this.type = new SimpleStringProperty(type);
+         this.type = type;
      }
 
     public int getComponentID() {
@@ -27,15 +29,11 @@ public class componentObject {
     }
 
     public String getName() {
-        return name.get();
-    }
-
-    public SimpleStringProperty nameProperty() {
         return name;
     }
 
     public void setName(String name) {
-        this.name.set(name);
+        this.name = name;
     }
 
     public int getPrice() {
@@ -47,15 +45,11 @@ public class componentObject {
     }
 
     public String getType() {
-        return type.get();
-    }
-
-    public SimpleStringProperty typeProperty() {
         return type;
     }
 
     public void setType(String type) {
-        this.type.set(type);
+        this.type = type;
     }
 
     //Burde finne en bedre løsning senere
