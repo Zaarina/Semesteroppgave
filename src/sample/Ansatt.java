@@ -35,7 +35,7 @@ public class Ansatt {
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(scene2);
             window.show();
-        } else lblStatus.setText("Brukernavn eller passord er feil"); //må fikse exception her
+        } else lblStatus.setText("Feil brukernavn eller passord"); //må fikse exception her
         //glemt passord??
     }
 
