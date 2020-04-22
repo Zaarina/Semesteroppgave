@@ -1,2 +1,2 @@
 # Semesteroppgave
-hei 
+Dette er en konfigurasjons program som tillater brukere å kunne bygge datamaskiner med komponenter som de kan selv velge mellom. Programmet tillater at brukeren kan lagre en datamaskin som har minst ett av alle de viktigste komponentene en PC trenger. Programmet tilbyr også administratorer en GUI som tillater dem til å gjøre endringer i systemet. En admin kan endre komponentobjekter. Dette kan være at en trenger å endre pris av et produkt. Admin skal også kunne slette og opprette nye produkter. Admin har også mulighet til å endre brukernes lagrede konfigurasjoner.
