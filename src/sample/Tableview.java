@@ -1,6 +1,7 @@
 package sample;
 
 import Component.componentObject;
+import Validator.ProductValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,12 +11,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 
 
 import java.io.*;
@@ -58,11 +58,14 @@ public class Tableview implements Initializable{
 
     @FXML
     void Write(ActionEvent event) {
+
         //Lagrer eksisterende objekter i en liste
         List<componentObject> list = new ArrayList<>(readSerializedFile());
+
         //Oppretter og legger til komponent
         componentObject item = new componentObject(1, nameTxt.getText(), Integer.parseInt(numberTxt.getText()), "Type");
         list.add(item);
+
         //Skriver til fil, oppdaterer tableview og klarerer inputfelt.
         writeObject(list);
         setSuperTableView();
@@ -76,7 +79,60 @@ public class Tableview implements Initializable{
         superTableView.setItems(superList);
     }
 
+    //Sletter valgt(e) komponent(er)
+    public void DeleteBtnClicked(){
 
+        ObservableList<componentObject> SelectedRows, allComponent;
+        allComponent = superTableView.getItems();
+
+        //Tar radene som er valgt
+        SelectedRows = superTableView.getSelectionModel().getSelectedItems();
+
+        //Går i loop for de valgte radene fra componentObject
+        for (componentObject ComponentObj: SelectedRows){
+            allComponent.remove(ComponentObj);
+
+        }
+
+        List<componentObject> list = new ArrayList<>(allComponent);
+        writeObject(list);
+    }
+
+    //Endrer verdier i tableView
+    public void EditName(TableColumn.CellEditEvent<componentObject, String> nameEdit) {
+        try{
+            ObservableList<componentObject> chosenComponent;
+            chosenComponent = superTableView.getItems();
+
+            componentObject name = superTableView.getSelectionModel().getSelectedItem();
+            name.setName(nameEdit.getNewValue());
+
+            List<componentObject> list = new ArrayList<>(chosenComponent);
+            writeObject(list);
+        } catch (IllegalArgumentException e){
+            Dialog.showErrorDialog("Ugyldig navn " + e.getMessage());
+        }
+
+
+        // IKKE SKRIV: writeobject(superlist)
+    }
+
+    public void EditPrice (TableColumn.CellEditEvent<componentObject, Integer> editPrice){
+
+        try {
+            ObservableList<componentObject> chosenComponent;
+            chosenComponent = superTableView.getItems();
+
+            componentObject price = superTableView.getSelectionModel().getSelectedItem();
+            price.setPrice((editPrice.getNewValue()));
+
+            List<componentObject> list = new ArrayList<>(chosenComponent);
+            writeObject(list);
+        } catch (IllegalArgumentException e){
+            Dialog.showErrorDialog("Ugyldig pris " + e.getMessage());
+        }
+
+    }
 
     //Exception må håndteres
     //Denne metoden kopierer og legger til et valgt objekt fra superTable til localTable
@@ -101,6 +157,15 @@ public class Tableview implements Initializable{
         superPriceColumn.setCellValueFactory(new PropertyValueFactory<componentObject, Integer>("price"));
         localNameColumn.setCellValueFactory(new PropertyValueFactory<componentObject, String>("name"));
         localPriceColumn.setCellValueFactory(new PropertyValueFactory<componentObject, Integer>("price"));
+
+
+        //Admin kan velge flere rader samtidig
+        superTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        //Oppdatere Komponent
+        superTableView.setEditable(true); //Kommentar: Sjekket bruk uten denne metoden, funker helt fint
+        superNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        superPriceColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
         try{
             setSuperTableView();

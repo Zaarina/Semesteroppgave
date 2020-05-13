@@ -1,18 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="297.0" prefWidth="445.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
-   <children>
-    <Button layoutX="63.0" layoutY="128.0" mnemonicParsing="false" onAction="#ansattScene" prefHeight="60.0" prefWidth="142.0" style="-fx-background-color: transparent; -fx-border-color: #000;" text="Ansatt">
-         <font>
-            <Font size="28.0" />
-         </font></Button>
-      <Button layoutX="253.0" layoutY="127.0" mnemonicParsing="false" onAction="#kundeScene" prefHeight="62.0" prefWidth="142.0" style="-fx-background-color: transparent; -fx-border-color: #000;" text="Kunde">
-         <font>
-            <Font size="31.0" />
-         </font></Button>
-   </children>
-</AnchorPane>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <top>
+      <VBox prefHeight="104.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label minHeight="50.0" text="Welcome">
+               <font>
+                  <Font size="30.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="260.0" top="95.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </VBox>
+   </top>
+   <center>
+      <HBox prefHeight="67.0" prefWidth="281.0" spacing="50.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#ansattScene" text="Employee">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#kundeScene" text="Customer">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Button>
+         </children>
+         <BorderPane.margin>
+            <Insets left="30.0" top="85.0" />
+         </BorderPane.margin>
+      </HBox>
+   </center>
+   <left>
+      <Pane prefHeight="196.0" prefWidth="159.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Pane prefHeight="196.0" prefWidth="156.0" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </bottom>
+</BorderPane>

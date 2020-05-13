@@ -21,8 +21,8 @@ public class Main extends Application
         primaryStage.setScene(new Scene(root, 445, 297));
          */
         //Test størrelse
-        primaryStage.setScene(new Scene(root, 1000, 500));
-        primaryStage.setMaximized(true);
+        primaryStage.setScene(new Scene(root, 650, 500));
+        //primaryStage.setMaximized(true);
         primaryStage.show();
 
     }
